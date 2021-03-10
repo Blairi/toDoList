@@ -1,38 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>toDoList</title>
-	<link rel="stylesheet" href="build/css/app.css">
-</head>
-<body>
-	<header class="header-principal">
-		<div class="barra">
-			<div class="contenido-barra contenedor">
-				<div class="brand">
-					<p>toDoList</p>
-				</div>
-				<i class="fa fa-bars barras" aria-hidden="true" id="btn-menu"></i>
-			</div>
-			<nav class="menu contenedor ocultar" id="menu">
-				<a href="">Mi cuenta</a>
-				<a href="">Cerrar Sesión</a>
-			</nav>
-		</div>
-		<div class="brand">
-			<h1>Organiza tus Días.</h1>
-		</div>
-	</header>
+<?php
+	require 'includes/funciones.php';
+
+
+	//Importar conexion
+    require 'includes/config/database.php';
+    $db = conectarDB();
+
+    // echo "<pre>";
+    // var_dump($db);
+    // echo "</pre>";
+
+    //Escribir query
+    $query = "SELECT * FROM tareas";
+    // echo $query;
+
+    //Consultar db
+    $resultadoConsulta = mysqli_query($db, $query);
+
+
+    //Arreglo con mensajes de error
+	$errores = [];
+
+	$titulo = '';
+	$descripcion = '';
+
+
+	//Incluye un template
+    incluirTemplate('header');
+
+    //Ejecutar el código despues de que el usuario mande el formulario
+	if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    	// echo "<pre>";
+    	// var_dump($_POST);
+    	// echo "</pre>";
+
+    	$titulo = mysqli_real_escape_string( $db, $_POST['titulo']);
+		$descripcion = mysqli_real_escape_string( $db, $_POST['descripcion']);
+
+		if(!$titulo){
+			$errores[] = "Debes añadir un Titulo";
+		}
+		if(!$descripcion){
+			$errores[] = "La descripcion es obligatoria y debe tener al menos 50 caracteres";
+		}
+
+		//Revisar el arreglo de errores este vacio
+		if(empty($errores)){
+
+			//Insertar en la base de datos
+			$query = " INSERT INTO tareas (titulo_tarea, descripcion_tarea) VALUES ('$titulo', '$descripcion')";
+			// echo $query;
+
+			$resultado = mysqli_query($db, $query);
+			// echo $resultado;
+
+			if($resultado){
+                header('Location: /');
+            }
+		}
+	}
+
+?>
 	<main class="contenedor tareas">
 		<h2>Tus Tareas</h2>
 		<div class="contenedor-tareas">
+			<?php while($tarea = mysqli_fetch_assoc($resultadoConsulta)): ?>
 			<div class="borde-tarea">
 				<div class="tarea">
 					<div class="vista-tarea">
 						<div class="tarea-acciones">
 							<div class="contenedor-titulo">
-								<p class="titulo-tarea">Hacer Tarea</p>
+								<p class="titulo-tarea"><?php echo $tarea['titulo_tarea']; ?></p>
 							</div>
 							<div class="contenedor-acciones">
 								<i class="fa fa-pencil boton-naranja btn-editar" aria-hidden="true"></i>
@@ -40,7 +78,7 @@
 							</div>
 						</div>
 						<div class="tarea-info">
-							<p class="descripcion">Hacer toda la tarea que tengo pendiente. Asi como mi trabajo de física.</p>
+							<p class="descripcion"><?php echo $tarea['descripcion_tarea']; ?></p>
 						</div>
 					</div>
 					<div class="editar-tarea ocultar">
@@ -75,6 +113,7 @@
 					</div>
 				</div>
 			</div>
+		<?php endwhile; ?>
 		</div><!-- CONTENEDOR TAREAS -->
 	</main>
 
@@ -83,15 +122,15 @@
 	<div class="crear-tarea ocultar">
 		<div class="tarea ventana-crear">
 			<div class="editar-tarea">
-				<form action="" class="formulario">
+				<form action="" class="formulario" method="POST">
 					<div class="campo">
 						<label for="tarea">Tarea</label>
-						<input type="text" id="tarea" placeholder="Min. 5 caracteres">
+						<input type="text" id="tarea" placeholder="Min. 5 caracteres"  name="titulo">
 					</div>
 
 					<div class="campo">
 						<label for="tarea-descripcion">Descripcion</label>
-						<textarea id="tarea-descripcion" placeholder="Min. 16 caracteres"></textarea>
+						<textarea id="tarea-descripcion" placeholder="Min. 16 caracteres" name="descripcion"></textarea>
 					</div>
 
 					<div class="mostrar-alertas"></div>
