@@ -1,0 +1,45 @@
+.header-principal{
+	background: $morado;
+	.barra{
+		position: sticky;
+		top: 0;
+		background: $morado;
+		.contenido-barra{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			i{
+				font-size: 4.5rem;
+				color: $blanco;
+				cursor: pointer;
+			}
+		}
+		.menu{
+			a{
+				display: block;
+				color: $blanco;
+				margin: .5rem 0;
+				&:last-child{
+					margin: 0;
+				}
+			}
+		}
+	}
+}
+.brand{
+	p{
+		font-size: 3.5rem;
+		font-weight: $bold;
+		margin: 0;
+		color: $blanco;
+	}
+	h1{
+		padding: 2rem 0;
+		font-weight: $delgada;
+		color: $blanco;
+		margin: 0;
+		font-size: 2rem;
+		background: $fiusha;
+		text-align: center;
+	}
+}

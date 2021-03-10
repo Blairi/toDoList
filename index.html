@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>toDoList</title>
+	<link rel="stylesheet" href="build/css/app.css">
+</head>
+<body>
+	<header class="header-principal">
+		<div class="barra">
+			<div class="contenido-barra contenedor">
+				<div class="brand">
+					<p>toDoList</p>
+				</div>
+				<i class="fa fa-bars barras" aria-hidden="true" id="btn-menu"></i>
+			</div>
+			<nav class="menu contenedor ocultar" id="menu">
+				<a href="">Mi cuenta</a>
+				<a href="">Cerrar Sesión</a>
+			</nav>
+		</div>
+		<div class="brand">
+			<h1>Organiza tus Días.</h1>
+		</div>
+	</header>
+	<main class="contenedor tareas">
+		<h2>Tus Tareas</h2>
+		<div class="contenedor-tareas">
+			<div class="borde-tarea">
+				<div class="tarea">
+					<div class="vista-tarea">
+						<div class="tarea-acciones">
+							<div class="contenedor-titulo">
+								<p class="titulo-tarea">Hacer Tarea</p>
+							</div>
+							<div class="contenedor-acciones">
+								<i class="fa fa-pencil boton-naranja btn-editar" aria-hidden="true"></i>
+								<i class="fa fa-check boton-verde eliminar-tarea" aria-hidden="true"></i>
+							</div>
+						</div>
+						<div class="tarea-info">
+							<p class="descripcion">Hacer toda la tarea que tengo pendiente. Asi como mi trabajo de física.</p>
+						</div>
+					</div>
+					<div class="editar-tarea ocultar">
+						<form action="" class="formulario">
+							<div class="campo">
+								<label for="tarea">Tarea</label>
+								<input type="text" id="tarea" placeholder="Min. 5 caracteres">
+							</div>
+
+							<div class="campo">
+								<label for="tarea-descripcion">Descripcion</label>
+								<textarea id="tarea-descripcion" placeholder="Min. 16 caracteres"></textarea>
+							</div>
+
+							<div class="mostrar-alertas"></div>
+
+							<div class="controles alinear-derecha">
+								<input type="submit" value="Guardar" class="boton-verde guardar deshabilitado" disabled="">
+								<input type="reset" value="Cancelar" class="boton-rojo cancelar">
+							</div>
+						</form>
+					</div>
+					<div class="confirmar-tarea ocultar">
+						<h3>¿Has terminado esta Tarea?</h3>
+						<form action="">
+							<div class="campo">
+								<input type="reset" value="&#xf00d;" class="boton-rojo no-confirmar fa fa-times">
+								<input type="submit" 
+								class="fa fa-check boton-verde" name="" value="&#xf00c;">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- CONTENEDOR TAREAS -->
+	</main>
+
+	<i class="fa fa-plus btn-nueva-tarea" aria-hidden="true"></i>
+	
+	<div class="crear-tarea ocultar">
+		<div class="tarea ventana-crear">
+			<div class="editar-tarea">
+				<form action="" class="formulario">
+					<div class="campo">
+						<label for="tarea">Tarea</label>
+						<input type="text" id="tarea" placeholder="Min. 5 caracteres">
+					</div>
+
+					<div class="campo">
+						<label for="tarea-descripcion">Descripcion</label>
+						<textarea id="tarea-descripcion" placeholder="Min. 16 caracteres"></textarea>
+					</div>
+
+					<div class="mostrar-alertas"></div>
+
+					<div class="controles alinear-derecha">
+						<input type="submit" value="Guardar" class="boton-verde guardar deshabilitado" disabled="">
+						<input type="reset" value="Cancelar" class="boton-rojo cancelar" id="boton-cancelar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://use.fontawesome.com/65f05820fe.js"></script>
+	<script src="build/js/bundle.min.js"></script>
+</body>
+</html>

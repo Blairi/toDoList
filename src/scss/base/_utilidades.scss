@@ -1,0 +1,32 @@
+.seccion {
+    margin-top: $separacion / 2;
+    margin-bottom: $separacion / 2;
+}
+.contenido-centrado {
+    max-width: 80rem;
+}
+
+.alinear-derecha {
+    display: flex;
+    justify-content: flex-end;
+}
+.ocultar{
+	display: none !important;
+}
+.alerta{
+	padding: 1rem 0;
+	font-size: 1.6rem;
+	text-align: center;
+	border-radius: 1rem;
+	margin-top: 1rem;
+}
+.error{
+	background: $rojo;
+	color: $blanco;
+}
+.deshabilitado{
+	background: $gris!important;
+	&:hover{
+		cursor: default!important;
+	}
+}

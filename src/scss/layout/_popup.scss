@@ -1,0 +1,18 @@
+.crear-tarea{
+	position: fixed;
+	background: rgba($negro, .5);
+	width: 100%;
+	height: 100%;
+	top: 0;
+	display: grid;
+	place-items: center;
+}
+.fijar-body{
+	overflow: hidden;
+}
+.ventana-crear{
+	width: 80%;
+	@include tablet{
+		width: 30%;
+	}
+}

@@ -1,0 +1,64 @@
+
+.contenedor-tareas{
+	@include tablet{
+		@include grid(3, .5rem);
+	}
+}
+.tarea{
+	background: $gris;
+	padding: 1rem 1rem;
+	border-radius: 1.5rem;
+	transition: all .3s ease-in-out;
+	&:hover{
+		background: darken($gris, 4);
+	}
+	.tarea-acciones{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		.contenedor-titulo{
+			width: 70%;
+		}
+		.contenedor-acciones{
+			width: 30%;
+			.boton-naranja,
+			.boton-verde{
+				width: 100%;
+				margin: 0;
+			}
+		}
+	}
+	.tarea-info{
+		.descripcion{
+			font-weight: $delgada;
+			font-size: 1.6rem;
+		}
+	}
+}
+.titulo-tarea{
+	color: $fiusha;
+	font-weight: $bold;
+	font-size: 2rem;
+}
+.borde-tarea{
+	background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+	background-repeat: repeat;
+	padding: .4rem;
+	border-radius: 1.5rem;
+	margin-bottom: 2rem;
+	animation: gradient 180s linear infinite;
+	@include tablet{
+		margin: 0;
+	}
+}
+@keyframes gradient{
+	0%{
+		background-position: 0 0;
+	}
+	50%{
+		background-position: -80rem 0;
+	}
+	100%{
+		background-position: 0 0;
+	}
+}
