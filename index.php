@@ -30,33 +30,39 @@
 
     //Ejecutar el código despues de que el usuario mande el formulario
 	if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    	// echo "<pre>";
-    	// var_dump($_POST);
-    	// echo "</pre>";
+    	echo "<pre>";
+    	var_dump($_POST);
+    	echo "</pre>";
 
-    	$titulo = mysqli_real_escape_string( $db, $_POST['titulo']);
-		$descripcion = mysqli_real_escape_string( $db, $_POST['descripcion']);
+    	if($_POST['editar'] === "si"){
+    		$tituloActualizado = mysqli_real_escape_string( $db, $_POST['titulo_actualizado']);
+			$descripcionActualizada = mysqli_real_escape_string( $db, $_POST['descripcion_actualizada']);
+			$id = mysqli_real_escape_string( $db, $_POST['tareaId']);
 
-		if(!$titulo){
-			$errores[] = "Debes añadir un Titulo";
-		}
-		if(!$descripcion){
-			$errores[] = "La descripcion es obligatoria y debe tener al menos 50 caracteres";
-		}
-
-		//Revisar el arreglo de errores este vacio
-		if(empty($errores)){
-
-			//Insertar en la base de datos
-			$query = " INSERT INTO tareas (titulo_tarea, descripcion_tarea) VALUES ('$titulo', '$descripcion')";
-			// echo $query;
+			$query = " UPDATE tareas SET titulo_tarea = '${tituloActualizado}', descripcion_tarea = '${descripcionActualizada}' WHERE id = ${id}";
+			//Actualizar en la base de datos
 
 			$resultado = mysqli_query($db, $query);
 			// echo $resultado;
 
 			if($resultado){
-                header('Location: /');
-            }
+				header('Location: /');
+			}
+
+		}
+
+		if($_POST['editar'] === "no"){
+			$titulo = mysqli_real_escape_string( $db, $_POST['titulo']);
+			$descripcion = mysqli_real_escape_string( $db, $_POST['descripcion']);
+
+			$query = " INSERT INTO tareas (titulo_tarea, descripcion_tarea) VALUES ('$titulo', '$descripcion')";
+			//echo $query;
+			$resultado = mysqli_query($db, $query);
+			// echo $resultado;
+
+			if($resultado){
+				header('Location: /');
+			}
 		}
 	}
 
@@ -82,15 +88,17 @@
 						</div>
 					</div>
 					<div class="editar-tarea ocultar">
-						<form action="" class="formulario">
+						<form action="" class="formulario" method="POST">
+							<input type="hidden" name="editar" value="si">
+							<input type="hidden" name="tareaId" value="<?php echo $tarea['id']; ?>">
 							<div class="campo">
 								<label for="tarea">Tarea</label>
-								<input type="text" id="tarea" placeholder="Min. 5 caracteres">
+								<input name="titulo_actualizado" type="text" id="tarea" placeholder="Min. 5 caracteres" value="<?php echo $tarea['titulo_tarea']; ?>">
 							</div>
 
 							<div class="campo">
 								<label for="tarea-descripcion">Descripcion</label>
-								<textarea id="tarea-descripcion" placeholder="Min. 16 caracteres"></textarea>
+								<textarea id="tarea-descripcion" placeholder="Min. 16 caracteres" name="descripcion_actualizada"><?php echo $tarea['descripcion_tarea']; ?></textarea>
 							</div>
 
 							<div class="mostrar-alertas"></div>
@@ -123,6 +131,7 @@
 		<div class="tarea ventana-crear">
 			<div class="editar-tarea">
 				<form action="" class="formulario" method="POST">
+					<input type="hidden" name="editar" value="no">
 					<div class="campo">
 						<label for="tarea">Tarea</label>
 						<input type="text" id="tarea" placeholder="Min. 5 caracteres"  name="titulo">
