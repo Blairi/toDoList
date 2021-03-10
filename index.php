@@ -64,6 +64,17 @@
 				header('Location: /');
 			}
 		}
+
+		if($_POST['borrar'] ==='si'){
+			$id = mysqli_real_escape_string( $db, $_POST['id']);
+			$query = "DELETE FROM tareas WHERE id = ${id}";
+
+            $resultado = mysqli_query($db, $query);
+
+            if($resultado){
+                header('Location: /');
+            }
+		}
 	}
 
 ?>
@@ -111,9 +122,11 @@
 					</div>
 					<div class="confirmar-tarea ocultar">
 						<h3>¿Has terminado esta Tarea?</h3>
-						<form action="">
+						<form action="" method="POST">
 							<div class="campo">
 								<input type="reset" value="&#xf00d;" class="boton-rojo no-confirmar fa fa-times">
+								<input type="hidden" name="id" value="<?php echo $tarea['id']; ?>">
+								<input type="hidden" name="borrar" value="si">
 								<input type="submit" 
 								class="fa fa-check boton-verde" name="" value="&#xf00c;">
 							</div>
